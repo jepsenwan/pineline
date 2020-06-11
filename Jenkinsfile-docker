@@ -5,7 +5,7 @@ pipeline {
                         agent {
                                 docker {
                                         reuseNode false
-                                        image 'jenkins/dind-jenkins-slave'
+                                        image 'jenkins/dind-jenkins-slave:jdk8'
                                         registryUrl 'https://harbor.acloudpro.com'
                                         registryCredentialsId 'cc2ca952-4abb-4059-879e-15ae9cf08da6'
 					args  '-v /var/run/docker.sock:/var/run/docker.sock'
