@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage('Docker in Docker') {
+                        stage('Image Build') {
+                        agent {
+                                docker {
+                                        reuseNode false
+                                        image 'jenkins/dind-jenkins-slave'
+                                        registryUrl 'https://harbor.acloudpro.com'
+                                        registryCredentialsId 'cc2ca952-4abb-4059-879e-15ae9cf08da6'
+					args  '-v /var/run/docker.sock:/var/run/docker.sock'
+                                        }
+                        }
+                                steps {
+					echo 'Starts inside container'
+                                        git 'https://github.com/jepsenwan/jenkins'
+					sh 'docker info'
+					sh 'docker build -t jenkins-demo:${BUILD_NUMBER} .'
+					sh 'docker tag jenkins-demo:${BUILD_NUMBER} jenkins-demo:latest'
+					sh 'docker images'
+                                }
+
+                        }  
+        }
+    }
+}
