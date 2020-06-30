@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('One') {
                 steps {
-                        echo 'Hi, this is ne jenkinsfile'
+                        echo 'Hi, this is ne jenkinsfile new'
 
                 }
         }
